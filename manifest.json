@@ -1,0 +1,17 @@
+{
+  "name": "Spell & Stack — Word Game for Kids",
+  "short_name": "Spell & Stack",
+  "description": "A bright, friendly word & spelling game for little learners. Build words from letter tiles, take turns, stack up words, and win stars. Works offline. No ads, no tracking.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff3df",
+  "theme_color": "#6d5bff",
+  "categories": ["education", "games", "kids"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
