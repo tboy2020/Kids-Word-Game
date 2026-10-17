@@ -2,7 +2,7 @@
    HTML: network-first (fresh when online, cached when offline).
    Assets (icons, manifest): cache-first.
    Bump CACHE only when the SW logic itself changes. */
-var CACHE = 'spell-stack-v1';
+var CACHE = 'spell-stack-v2';
 var SHELL = ['./', './index.html', './manifest.json',
              './icon-192.png', './icon-512.png', './icon-180.png'];
 

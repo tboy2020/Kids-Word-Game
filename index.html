@@ -811,6 +811,7 @@ function applyPlayerColor(p){
   r.setProperty("--pc-soft", p.color.soft);
 }
 function startTurn(){
+  if(!$("#game").classList.contains("active"))return;
   if(G.turnCount>=G.total){ endGame(); return; }
   var p=curPlayer(); applyPlayerColor(p); renderScoreboard();
   // pass / handoff screen
@@ -1123,7 +1124,7 @@ function toast(msg){
 /* ====================================================================
    WIN
    ==================================================================== */
-function endGame(){
+function endGame(){if(!$("#game").classList.contains("active"))return;
   try{ window.speechSynthesis.cancel(); }catch(e){}
   var ranked=G.players.slice().sort(function(a,b){ return b.score-a.score || b.stars-a.stars; });
   var top=ranked[0].score;
