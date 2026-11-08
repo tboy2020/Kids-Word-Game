@@ -812,6 +812,7 @@ function applyPlayerColor(p){
 }
 function startTurn(){
   if(!$("#game").classList.contains("active"))return;
+  G.ending=false;
   if(G.turnCount>=G.total){ endGame(); return; }
   var p=curPlayer(); applyPlayerColor(p); renderScoreboard();
   // pass / handoff screen
@@ -835,11 +836,14 @@ function beginTurn(){
   if(!G.firstTutorialDone){ G.firstTutorialDone=true; markTut(); setTimeout(openHow, 400); }
 }
 function endTurn(){
+  if(G.ending) return;            // idempotent: ignore a second call in the same transition
+  G.ending=true;
   G.turnCount++;
   if(G.turnCount>=G.total){ setTimeout(endGame, 700); }
   else{ setTimeout(startTurn, 700); }
 }
 function skipTurn(){
+  if(G.ending || (G.turn && G.turn.checking)) return;   // not mid-check, not already advancing
   sSoft(); speak("That's okay! Next player.");
   toast("No worries — next turn! 😊");
   endTurn();
@@ -937,11 +941,11 @@ function clearTiles(){
 function builtWord(){ return G.turn.slots.map(function(id){ return id==null?"_":tileById(id).ch; }).join(""); }
 function checkSpell(){
   var t=G.turn; var built=builtWord();
-  if(built===t.word){ spellWin(); return; }
-  // partial: lock correct positions, return wrong ones
+  if(built.toLowerCase()===t.word.toLowerCase()){ spellWin(); return; }
+  // partial: lock correct positions, return wrong ones (case-insensitive: tiles display uppercase)
   t.attempts++;
   for(var i=0;i<t.slots.length;i++){
-    if(built[i]===t.word[i]){ var tl=tileById(t.slots[i]); tl.locked=true; }
+    if(built[i]!=="_" && built[i].toLowerCase()===t.word[i].toLowerCase()){ var tl=tileById(t.slots[i]); tl.locked=true; }
     else{ var id=t.slots[i]; if(id!=null){ var w=tileById(id); if(!w.locked){ t.slots[i]=null; w.used=false; w.hinted=false; } } }
   }
   t.checking=false;
