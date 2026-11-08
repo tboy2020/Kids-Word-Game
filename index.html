@@ -753,7 +753,7 @@ function wordPool(tier, packIds){
   var exact=WORDS.filter(function(w){ return w.lvl===tier && inPack(w); });
   if(exact.length>=6) return exact;
   var leq=WORDS.filter(function(w){ return w.lvl<=tier && inPack(w); });
-  return leq.length>=4?leq:WORDS.filter(function(w){ return w.lvl<=tier; });
+  return leq.length>=4?leq:WORDS.filter(function(w){ return inPack(w); });   // stay within the chosen packs (never leak disabled packs' words)
 }
 function validateStart(){
   var ok=true, msg="";
@@ -977,7 +977,7 @@ function hintSpell(){
   renderSpell();
   if(t.slots.indexOf(null)<0){ t.checking=true; setTimeout(checkSpell, 400); }
 }
-function sayWord(){ if(G.turn){ speak(G.turn.word, 0.85); } }
+function sayWord(){ if(G.turn && $("#game").classList.contains("active")){ speak(G.turn.word, 0.85); } }
 function soundOut(){ if(G.turn){ spellLetters(G.turn.word); } }
 
 function spellWin(){
