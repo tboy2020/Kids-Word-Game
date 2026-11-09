@@ -2,8 +2,8 @@
    HTML: network-first (fresh when online, cached when offline).
    Assets (icons, manifest): cache-first.
    Bump CACHE only when the SW logic itself changes. */
-var CACHE = 'spell-stack-v4';
-var SHELL = ['./', './index.html', './manifest.json',
+var CACHE = 'spell-stack-v5';
+var SHELL = ['./', './index.html', './manifest.json', './install-button.js',
              './icon-192.png', './icon-512.png', './icon-180.png'];
 
 self.addEventListener('install', function (e) {
